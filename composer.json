@@ -1,7 +1,7 @@
 {
     "name" : "net-tools/mail-reader",
 		
-    "description" : "Parse an email and get a set of Nettools\Mailing\MailBuilder\* objects",
+    "description" : "Parse an email and get a set of Nettools\\Mailing\\MailBuilder\\* objects",
 	
 	"type": "library",
 	
