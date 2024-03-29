@@ -18,7 +18,7 @@ class ReaderTest extends \PHPUnit\Framework\TestCase
 		// we test headers with folding, with or without quotes (")
 		// we test iso-8859-1 charset converted to utf8
         $mail = Reader::fromFile(__DIR__ . '/data/' . substr(strrchr(__CLASS__, '\\'),1) . '.plainhtml.eml');
-		$this->assertInstanceOf(\Nettools\Mailing\MailReader::class, $mail);
+		$this->assertInstanceOf(Reader::class, $mail);
 		$this->assertInstanceOf(\Nettools\Mailing\MailBuilder\Content::class, $mail->email);
 		$this->assertTrue($mail->headers instanceof \Nettools\Mailing\MailerEngine\Headers);
 		
