@@ -48,7 +48,7 @@ class EngineTest extends \PHPUnit\Framework\TestCase
 		$this->assertInstanceOf(\Nettools\Mailing\MailBuilder\TextPlainContent::class, $mail->email->getPart(0)->getPart(0));		
 		$this->assertStringStartsWith("this is a *unit test* with inline attachment", $mail->email->getPart(0)->getPart(0)->getText());
 		$this->assertInstanceOf(\Nettools\Mailing\MailBuilder\Embedding::class, $mail->email->getPart(1));
-		$fname = $mail->email->getPart(1)->getFile();
+		$fname = $mail->email->getPart(1)->getData();
 		$this->assertFileEquals(__DIR__ . '/data/' . substr(strrchr(__CLASS__, '\\'),1) . '.inline.png', $fname);
 		Engine::clean($mail->email);
 		$this->assertFileDoesNotExist($fname);	// destroy a supprimé le fichier temporaire
@@ -71,7 +71,7 @@ class EngineTest extends \PHPUnit\Framework\TestCase
                             $mail->email->getPart(0)->getText()
 						);
 		$this->assertInstanceOf(\Nettools\Mailing\MailBuilder\Attachment::class, $mail->email->getPart(1));
-		$fname = $mail->email->getPart(1)->getFile();
+		$fname = $mail->email->getPart(1)->getData();
         // gzdecode because GIT or FTP software may convert CRLF to LF
 		$this->assertEquals(gzdecode(file_get_contents(__DIR__ . '/data/' . substr(strrchr(__CLASS__, '\\'),1) . '.CRLF_attachment.bin.gz')), file_get_contents($fname)); 
 		Engine::clean($mail->email);
@@ -95,7 +95,7 @@ class EngineTest extends \PHPUnit\Framework\TestCase
                             $mail->email->getPart(0)->getText()
 						);
 		$this->assertInstanceOf(\Nettools\Mailing\MailBuilder\Attachment::class, $mail->email->getPart(1));
-		$fname = $mail->email->getPart(1)->getFile();
+		$fname = $mail->email->getPart(1)->getData();
         // gzdecode because GIT or FTP software may convert CRLF to LF
 		$this->assertEquals(gzdecode(file_get_contents(__DIR__ . '/data/' . substr(strrchr(__CLASS__, '\\'),1) . '.LF_attachment.bin.gz')), file_get_contents($fname)); 
 		Engine::clean($mail->email);
@@ -114,9 +114,9 @@ class EngineTest extends \PHPUnit\Framework\TestCase
 		$this->assertInstanceOf(\Nettools\Mailing\MailBuilder\Attachment::class, $mail->email->getPart(1));
 		$this->assertInstanceOf(\Nettools\Mailing\MailBuilder\Attachment::class, $mail->email->getPart(2));
 
-        $fname = $mail->email->getPart(1)->getFile();
+        $fname = $mail->email->getPart(1)->getData();
 		$this->assertEquals(gzdecode(file_get_contents(__DIR__ . '/data/' . substr(strrchr(__CLASS__, '\\'),1) . '.CRLF_attachment.bin.gz')), file_get_contents($fname)); 
-		$fname2 = $mail->email->getPart(2)->getFile();
+		$fname2 = $mail->email->getPart(2)->getData();
 		$this->assertEquals(gzdecode(file_get_contents(__DIR__ . '/data/' . substr(strrchr(__CLASS__, '\\'),1) . '.LF_attachment.bin.gz')), file_get_contents($fname2)); 
 		Engine::clean($mail->email);
 		$this->assertFileDoesNotExist($fname);	

@@ -43,7 +43,7 @@ class Engine
 		// if cleaning required
 		if ( in_array(get_class($mail), array('Nettools\Mailing\MailBuilder\Attachment', 'Nettools\Mailing\MailBuilder\Embedding')) )
 		{
-			$f = $mail->getFile();
+			$f = $mail->getData();
 			if ( file_exists($f) )
 				unlink($f);
 		}
